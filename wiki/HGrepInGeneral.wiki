@@ -4,7 +4,7 @@
 
 The simplest way to use HGrep is to get a list of headers back from a server. For example when you type something like:
 <pre>
-C:\>hgrep uri=http://nathandelane.com
+C:\>hgrep uri=!http://nathandelane.com
 </pre>
 
 you will see the program return the server headers like this:
@@ -23,7 +23,7 @@ As you can see this can sometimes prove to be very useful. From this information
 
 Let's take a look at somebody else's server now, for example HackThisSite.org:
 <pre>
-C:\>hgrep uri=http://www.hackthissite.org
+C:\>hgrep uri=!http://www.hackthissite.org
 </pre>
 
 The result is:
@@ -45,7 +45,7 @@ Here you can see that they are setting a cookie. It also looks like they custom 
 
 Although one of the main reasons I wrote HGrep was in order to get server headers back in order to verify that I was pointing to the server that I thought I should be, it is also useful for retrieving actual data from the server in the form of HTML. There are two selection protocols currently in place, one for XPath, and one for Regular Expressions. The Regular Expression selection protocol is currently in an experimental stage, which is explained in the output when you use it, for example:
 <pre>
-C:\>hgrep url=http://www.google.com "find-regexp=<img"
+C:\>hgrep url=!http://www.google.com "find-regexp=<img"
 Matches Found (Experimental):
 /<img/
 0 </style><div id="tba"><a href="#" onclick="tbc();return!1" id="tbe"><img border="0" src="/images/close_sm.gif" />...
