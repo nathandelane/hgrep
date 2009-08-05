@@ -1,0 +1,56 @@
+#This page describes how to use HGrep in general
+
+=Basic HGrep Usage
+
+The simplest way to use HGrep is to get a list of headers back from a server. For example when you type something like:
+<pre>
+C:\>hgrep uri=http://nathandelane.com
+</pre>
+
+you will see the program return the server headers like this:
+<pre>
+Response Headers:
+Keep-Alive                              timeout=15, max=100
+Connection                              Keep-Alive
+Content-Length                          215
+Content-Type                            text/html
+Date                                    Wed, 05 Aug 2009 20:28:52 GMT
+Server                                  Apache/2.2.8 (Ubuntu) PHP/5.2.4-2ubuntu5.6 with Suhosin-Patch
+X-Powered-By                            PHP/5.2.4-2ubuntu5.6
+</pre>
+
+As you can see this can sometimes prove to be very useful. From this information you can already derive that I, on my server, use Apache HTTP server 2.2.8, I am running an Ubuntu Linux server, and I am using PHP 5.2.4-2.
+
+Let's take a look at somebody else's server now, for example HackThisSite.org:
+<pre>
+C:\>hgrep uri=http://www.hackthissite.org
+</pre>
+
+The result is:
+<pre>
+Response Headers:
+Pragma                                  no-cache
+Keep-Alive                              timeout=5, max=100
+Connection                              Keep-Alive
+Transfer-Encoding                       chunked
+Cache-Control                           no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Content-Type                            text/html
+Date                                    Wed, 05 Aug 2009 20:44:06 GMT
+Expires                                 Thu, 19 Nov 1981 08:52:00 GMT
+Set-Cookie                              PHPSESSID=8pallmnfmabg42s8ebc3frdjt1; path=/
+Server                                  Apache
+</pre>
+
+Here you can see that they are setting a cookie. It also looks like they custom compiled their Apache server so that it wouldn't include the version. They must also be using PHP because of the PHPSESSID cookie. Not much else though.
+
+Although one of the main reasons I wrote HGrep was in order to get server headers back in order to verify that I was pointing to the server that I thought I should be, it is also useful for retrieving actual data from the server in the form of HTML. There are two selection protocols currently in place, one for XPath, and one for Regular Expressions. The Regular Expression selection protocol is currently in an experimental stage, which is explained in the output when you use it, for example:
+<pre>
+C:\>hgrep url=http://www.google.com "find-regexp=<img"
+Matches Found (Experimental):
+/<img/
+0 </style><div id="tba"><a href="#" onclick="tbc();return!1" id="tbe"><img border="0" src="/images/close_sm.gif" />...
+</pre>
+
+Which can go on and on forever. This is because the Regular Expression evaluator is a line evaluator, so for each line that the regular expression matches, you get a pysical line back from the file.
+
+The XPath selection protocol is much more useful, because it selects and returns individual elements. XPath is a W3C standard for selecting elements in XML-based documents. Since for all intents and purposes moden HTML is XML based, XPath turns out to work nicely with it.
