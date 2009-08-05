@@ -1,3 +1,4 @@
+#labels Featured,Usage
 #This page describes how to use HGrep in general
 
 =Basic HGrep Usage
@@ -53,4 +54,86 @@ Matches Found (Experimental):
 
 Which can go on and on forever. This is because the Regular Expression evaluator is a line evaluator, so for each line that the regular expression matches, you get a pysical line back from the file.
 
-The XPath selection protocol is much more useful, because it selects and returns individual elements. XPath is a W3C standard for selecting elements in XML-based documents. Since for all intents and purposes moden HTML is XML based, XPath turns out to work nicely with it.
+The XPath selection protocol is much more useful, because it selects and returns individual elements. XPath is a W3C standard for selecting elements in XML-based documents. Since for all intents and purposes moden HTML is XML based, XPath turns out to work nicely with it. More on XPath syntax can be found at <a href="http://www.w3schools.com/XPath/xpath_syntax.asp">W3C</a>. I will only discuss a limited amount of XPath here.
+
+Probably the most common XPath, at least that I use is relative XPath syntax. Relative XPath syntax requires that you formulate your expression as:
+{{{
+//<tagName>[@attributeName='value'...']
+}}}
+
+You can use the xpath like this on the Google homepage:
+<pre>
+C:\>hgrep uri=http://www.google.com find=//img
+</pre>
+
+The result looks something like this:
+<pre>
+Nodes Found:
+img [[[border='0']][[src='/images/close_sm.gif']]]
+img [[[src='/images/toolbar_sm.png']]]
+img [[[src='/images/dl_btn_left.gif']]]
+img [[[src='/images/dl_btn_right.gif']]]
+img [[[height='110']][[alt='Google']][[width='276']][[src='/intl/en_ALL/images/logo.gif']][[onload='window.lol&amp;&amp;lol()']][[id='logo']]]
+</pre>
+
+What you see is a representation of every <img> tag on the Google homepage. There are five tags here. The square brackets contain all of the attributes. And if there were an innerHtml or innerText value, then it would appear after an equals symbol on the right side. Now that you have this information, you can use it to get more specific:
+<pre>
+C:\>hgrep uri=http://www.google.com find=//img[[@alt='Google']]
+Nodes Found:
+img [[[height='110']][[alt='Google']][[width='276']][[src='/intl/en_ALL/images/logo.gif']][[onload='window.lol&amp;&amp;lol()']][[id='logo']]]
+</pre>
+
+The nice thing about this is that it does not rely on the physical format of the document, rather it only relies on the syntactic format of the XML, XHTML, or HTML, whatever it may be. I utilize <a href="http://www.codeplex.com/htmlagilitypack">HTMLAgilityPack</a> to search the HTML using XPath, and it turns out to work very well. I always get expected results.
+
+Let's try one more to give you a little more taste of XPath:
+<pre>
+C:\>hgrep uri=http://www.youtube.com find=//a[[contains(@href,'watch')]]
+</pre>
+
+And the results:
+<pre>
+Nodes Found:
+a [[[href='/watch_queue?all']][[onmousedown='urchinTracker('/Events/Header/UtilLinks/QuickList');']][[class='hLink']]] = Quic...
+a [[[href='/watch?v=FREqWf-lUdc&amp;feature=featured']][[rel='nofollow']][[onmousedown='urchinTracker('/Events/Home/PersonalizedHo...
+a [[[href='/watch_queue?all']]] = Added
+a [[[href='/watch?v=FREqWf-lUdc&amp;feature=featured']][[title='Gowanus, Brooklyn']][[rel='nofollow']][[onmousedown='urchinTracker...
+a [[[href='/watch?v=FREqWf-lUdc&amp;feature=featured']][[title='Gowanus, Brooklyn']][[rel='nofollow']][[onmousedown='urchinTracker...
+a [[[href='/watch?v=fhkh_xNPTWw&amp;feature=featured']][[rel='nofollow']][[onmousedown='urchinTracker('/Events/Home/PersonalizedHo...
+a [[[href='/watch_queue?all']]] = Added
+a [[[href='/watch?v=fhkh_xNPTWw&amp;feature=featured']][[title='Sundance Directors Lab 1: Getting Started']][[rel='nofollow']][[on...
+...
+</pre>
+
+Whoah! Link dump. That's right, HGrep, it turns out, is very useful for scraping stuff. Here I just scraped all of the links on the YouTube homepage. (I've cut off most of the results as well as the ends of the lines for formatting purposes.)
+
+And just in case you wanted to know exactly how many links I actually got from that query:
+<pre>
+C:\>hgrep uri=http://www.youtube.com find=//a[[contains(@href,'watch')]] count-only
+Nodes Found:
+78
+</pre>
+
+If you type <pre>hreg</pre> or <pre>hgrep help</pre> then you will get a listing of all of the different options you can use and what they do.
+<pre>
+C:\>hgrep help
+HGrep url=<fully qualified url> [options]
+Options may be qualified by --, -, or / and in some terminals and cases you may need to qualify complete arguments with ".."
+The available options include:
+count-only                    Displays only the number of nodes that would be returned from find option.
+find<xpath>                   XPath expression used to find a specific element of elements in the document.
+find-regexp=<regex>           Regular expression used to find a specific element of elements in the document. (This is experimental)
+help[=<topic>]                  Displays this help.
+ignore-bad-certs              Ignores when a bad SSL/TLS certificate is being used by a server.
+no-attributes                 Suppresses output of attributes from find option.
+no-inner-html                 Suppresses output of inner-html from find option.
+no-numbering                  Suppresses numbering from find-regexp option.
+post-body=<querystring>       Causes the request to post form data.
+return-attributes=<attributes>Returns only the specified attributes of an XPath query
+return-headers                Displays the response headers of the request.
+return-url                    Diaplys the resulting URL from automatic redirects.
+scrub                         Removes or scrubs the data headers.
+</pre>
+
+Well enjoy, and I hope you find it useful. If there is functionality you desire, then feel free to let me know.
+
+Nathandelane.
