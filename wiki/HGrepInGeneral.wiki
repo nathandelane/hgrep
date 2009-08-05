@@ -1,7 +1,6 @@
 #labels Featured,Usage
-#This page describes how to use HGrep in general
-
-=Basic HGrep Usage
+= Basic HGrep Usage =
+=== This page describes how to use HGrep in general ===
 
 The simplest way to use HGrep is to get a list of headers back from a server. For example when you type something like:
 <pre>
