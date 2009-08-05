@@ -112,7 +112,7 @@ Nodes Found:
 78
 </pre>
 
-If you type <pre>hreg</pre> or <pre>hgrep help</pre> then you will get a listing of all of the different options you can use and what they do.
+If you type <pre>hgrep</pre> or <pre>hgrep help</pre> then you will get a listing of all of the different options you can use and what they do.
 <pre>
 C:\>hgrep help
 HGrep url=<fully qualified url> [options]
