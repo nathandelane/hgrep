@@ -118,10 +118,12 @@ C:\>hgrep help
 HGrep url=<fully qualified url> [options]
 Options may be qualified by --, -, or / and in some terminals and cases you may need to qualify complete arguments with ".."
 The available options include:
+clean                         Removes titles from results.
 count-only                    Displays only the number of nodes that would be returned from find option.
+encode-line-breaks            Replaces \n and \r with textual representations.
 find<xpath>                   XPath expression used to find a specific element of elements in the document.
 find-regexp=<regex>           Regular expression used to find a specific element of elements in the document. (This is experimental)
-help[=<topic>]                  Displays this help.
+help[=<topic>]                Displays this help.
 ignore-bad-certs              Ignores when a bad SSL/TLS certificate is being used by a server.
 no-attributes                 Suppresses output of attributes from find option.
 no-inner-html                 Suppresses output of inner-html from find option.
@@ -130,7 +132,8 @@ post-body=<querystring>       Causes the request to post form data.
 return-attributes=<attributes>Returns only the specified attributes of an XPath query
 return-headers                Displays the response headers of the request.
 return-url                    Diaplys the resulting URL from automatic redirects.
-scrub                         Removes or scrubs the data headers.
+scrub                         Disables automatic display of response headers.
+timeout                       Overrides the default timeout setting in the config file.
 </pre>
 
 Well enjoy, and I hope you find it useful. If there is functionality you desire, then feel free to let me know.
