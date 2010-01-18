@@ -21,7 +21,7 @@ X-Powered-By                            PHP/5.2.4-2ubuntu5.6
 
 As you can see this can sometimes prove to be very useful. From this information you can already derive that I, on my server, use Apache HTTP server 2.2.8, I am running an Ubuntu Linux server, and I am using PHP 5.2.4-2.
 
-Let's take a look at somebody else's server now, for example HackThisSite.org:
+Let's take a look at somebody else's server now, for example !HackThisSite.org:
 <pre>
 C:\>hgrep uri=http://www.hackthissite.org
 </pre>
