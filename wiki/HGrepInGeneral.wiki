@@ -68,10 +68,10 @@ C:\>hgrep uri=http://www.google.com find=//img
 The result looks something like this:
 <pre>
 Nodes Found:
-img ![[[border='0']]![[src='/images/close_sm.gif']]]
-img ![[[src='/images/toolbar_sm.png']]]
-img ![[[src='/images/dl_btn_left.gif']]]
-img ![[[src='/images/dl_btn_right.gif']]]
+img [[[border='0']][[src='/images/close_sm.gif']]]
+img [[[src='/images/toolbar_sm.png']]]
+img [[[src='/images/dl_btn_left.gif']]]
+img [[[src='/images/dl_btn_right.gif']]]
 img [[[height='110']][[alt='Google']][[width='276']][[src='/intl/en_ALL/images/logo.gif']][[onload='window.lol&amp;&amp;lol()']][[id='logo']]]
 </pre>
 
